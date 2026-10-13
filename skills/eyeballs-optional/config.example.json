@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "limits": {
+    "max_substantive_lines": 2000,
+    "max_raw_lines": null,
+    "max_changed_files": null
+  },
+  "size_exclusions": "verified_mechanical",
+  "always_er_paths": [],
+  "disabled_eo_paths": [],
+  "inspection": "full"
+}
