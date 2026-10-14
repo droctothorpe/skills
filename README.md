@@ -9,16 +9,9 @@ Name | Description
 
 ## Configure metarev
 
-Copy [`config.example.yaml`](./skills/metarev/config.example.yaml) to `~/.config/metarev/config.yaml` to change the default roster. The file replaces the defaults entirely; metarev spawns one reviewer per entry. Requires Python 3.10+, Git, [pi-subagents](https://www.npmjs.com/package/pi-subagents), and provider access for each configured model. PR capture and posting also require authenticated `gh`.
+Copy [`config.example.yaml`](./skills/metarev/config.example.yaml) to `~/.config/metarev/config.yaml` to change the default roster. The file replaces the defaults entirely; metarev launches one reviewer per entry through the host harness's native subagent tools. The host must support the configured models and reasoning settings; unsupported capabilities are reported rather than silently substituted. In Pi, this uses [pi-subagents](https://www.npmjs.com/package/pi-subagents).
 
-```sh
-python3 -m pip install -r skills/metarev/requirements.txt
-python3 -m unittest discover -s skills/metarev/tests -v
-```
-
-The helper scripts capture targets, validate configuration, generate the parallel workflow, validate results, format reports, and post approved comments. Models handle only review and semantic deduplication. Without a PR, the scope is staged, unstaged, and non-ignored untracked changes under the invocation directory; a clean scope stops without reviewing committed history. Reports print before the user is asked to publish, and posting checks the approved report's hash.
-
-To inspect the script interface: `python3 skills/metarev/scripts/metarev.py --help`. The [skill](./skills/metarev/SKILL.md) documents the full prepare → review → collect → render → approve/publish sequence.
+Metarev is instruction-only: no helper scripts or Python dependencies. Requires Git; PR lookup and posting also require authenticated `gh`. Without a PR, it reviews staged, unstaged, and non-ignored untracked changes under the current directory. The full consolidated report is displayed before asking for explicit permission to post it as a PR comment.
 
 ## Configure eyeballs-optional
 
