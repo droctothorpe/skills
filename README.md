@@ -5,11 +5,20 @@ I use this repository to maintain various LLM skills.
 Name | Description
 --- | ---
 [eyeballs-optional](./skills/eyeballs-optional/SKILL.md) | Classifies PRs as eyeballs required (ER) or eyeballs optional (EO) using configurable policy gates and evidence-led impact assessment.
-[metarev](./skills/metarev/SKILL.md) | Reviews a PR with multiple models in parallel (one reviewer subagent per model) and consolidates the findings into consensus and per-model sections.
+[metarev](./skills/metarev/SKILL.md) | Reviews a PR—or current-directory changes when no PR is supplied—with multiple models in parallel, consolidates findings, and offers to post the report after approval.
 
 ## Configure metarev
 
-By default metarev reviews with `github-copilot/gpt-6-astra` and `claude-bridge/claude-fable-5`, both at high reasoning. To change the roster, copy [`config.example.yaml`](./skills/metarev/config.example.yaml) to `~/.config/metarev/config.yaml` and list any number of models and their reasoning levels — you're not limited to two; metarev spawns one reviewer per entry. The file replaces the defaults entirely. Requires [pi-subagents](https://www.npmjs.com/package/pi-subagents), plus provider access for each configured model.
+Copy [`config.example.yaml`](./skills/metarev/config.example.yaml) to `~/.config/metarev/config.yaml` to change the default roster. The file replaces the defaults entirely; metarev spawns one reviewer per entry. Requires Python 3.10+, Git, [pi-subagents](https://www.npmjs.com/package/pi-subagents), and provider access for each configured model. PR capture and posting also require authenticated `gh`.
+
+```sh
+python3 -m pip install -r skills/metarev/requirements.txt
+python3 -m unittest discover -s skills/metarev/tests -v
+```
+
+The helper scripts capture targets, validate configuration, generate the parallel workflow, validate results, format reports, and post approved comments. Models handle only review and semantic deduplication. Without a PR, the scope is staged, unstaged, and non-ignored untracked changes under the invocation directory; a clean scope stops without reviewing committed history. Reports print before the user is asked to publish, and posting checks the approved report's hash.
+
+To inspect the script interface: `python3 skills/metarev/scripts/metarev.py --help`. The [skill](./skills/metarev/SKILL.md) documents the full prepare → review → collect → render → approve/publish sequence.
 
 ## Configure eyeballs-optional
 
