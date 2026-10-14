@@ -5,6 +5,11 @@ I use this repository to maintain various LLM skills.
 Name | Description
 --- | ---
 [eyeballs-optional](./skills/eyeballs-optional/SKILL.md) | Classifies PRs as eyeballs required (ER) or eyeballs optional (EO) using configurable policy gates and evidence-led impact assessment.
+[metarev](./skills/metarev/SKILL.md) | Reviews a PR with multiple models in parallel (one reviewer subagent per model) and consolidates the findings into consensus and per-model sections.
+
+## Configure metarev
+
+By default metarev reviews with `github-copilot/gpt-6-astra` and `claude-bridge/claude-fable-5`, both at high reasoning. To change the roster, copy [`config.example.yaml`](./skills/metarev/config.example.yaml) to `~/.config/metarev/config.yaml` and list any number of models and their reasoning levels — you're not limited to two; metarev spawns one reviewer per entry. The file replaces the defaults entirely. Requires [pi-subagents](https://www.npmjs.com/package/pi-subagents), plus provider access for each configured model.
 
 ## Configure eyeballs-optional
 

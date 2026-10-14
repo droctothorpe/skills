@@ -1,0 +1,11 @@
+# Copy to ~/.config/metarev/config.yaml to override the default model roster.
+# The file replaces the defaults entirely (no merging).
+#
+# model:     an exact pi-ai registry id, qualified as provider/id
+# reasoning: off | minimal | low | medium | high | xhigh | max
+#            (omit to use the reviewer agent's default thinking level)
+models:
+  - model: github-copilot/gpt-6-astra
+    reasoning: high
+  - model: claude-bridge/claude-fable-5
+    reasoning: high
