@@ -5,6 +5,7 @@ I use this repository to maintain various LLM skills.
 Name | Description
 --- | ---
 [eyeballs-optional](./skills/eyeballs-optional/SKILL.md) | Classifies PRs as eyeballs required (ER) or eyeballs optional (EO) using configurable policy gates and evidence-led impact assessment.
+[kfp-authoring](./skills/kfp-authoring/SKILL.md) | Authors Kubeflow pipelines, runs the KFP HTML exporter in watch mode, and previews the live DAG in Omnigent's file viewer.
 [metarev](./skills/metarev/SKILL.md) | Reviews a PR—or current-directory changes when no PR is supplied—with multiple models in parallel, consolidates findings, and offers to post the report after approval.
 
 ## Configure metarev
